@@ -70,7 +70,39 @@ int DijkstraTest(){
 void MoreDijkstraTests(){
 	cout << "Deep Testing Dijkstra Algorithm..." << endl;
 
-	// Your code goes here!
+
+	// Test 2: Simple direct edge
+	{
+		Graph g;
+		g.AddNode(1);
+		g.AddNode(2);
+		g.AddEdge(1, 2, 5);
+		assert(dijkstra(1, 2, &g) == 5);
+	}
+
+	// Test 3: Indirect shorter path vs longer direct
+	{
+		Graph g;
+		g.AddNode(1);
+		g.AddNode(2);
+		g.AddNode(3);
+		g.AddEdge(1, 3, 100);     // long direct path
+		g.AddEdge(1, 2, 10);
+		g.AddEdge(2, 3, 15);      // shorter path through node 2
+		assert(dijkstra(1, 3, &g) == 25);
+	}
+
+	// Test 4: Cycle
+	{
+		Graph g;
+		g.AddNode(1);
+		g.AddNode(2);
+		g.AddNode(3);
+		g.AddEdge(1, 2, 3);
+		g.AddEdge(2, 3, 4);
+		g.AddEdge(3, 1, 5); // completes a cycle
+		assert(dijkstra(1, 3, &g) == 7);
+	}
 
 	cout << "DONE Deep Testing Dijkstra Algorithm" << endl;
 }
